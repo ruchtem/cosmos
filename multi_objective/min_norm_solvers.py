@@ -224,13 +224,13 @@ class MinNormSolver:
 def gradient_normalizers(grads, losses, normalization_type):
     gn = {}
     if normalization_type == 'l2':
-        for t in range(len(grads)):
+        for t in grads:
             gn[t] = np.sqrt(np.sum([gr.pow(2).sum().item() for gr in grads[t].values()]))
     elif normalization_type == 'loss':
-        for t in range(len(grads)):
+        for t in grads:
             gn[t] = losses[t]
     elif normalization_type == 'loss+':
-        for t in range(len(grads)):
+        for t in grads:
             gn[t] = losses[t] * np.sqrt(np.sum([gr.pow(2).sum().item() for gr in grads[t].values()]))
     elif normalization_type == 'none':
         for t in grads:
